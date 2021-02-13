@@ -104,7 +104,8 @@ def get_ecs_ids(ec2_instance_id):
     for page in cluster_response:
         for cluster_arn in page['clusterArns']:
             list_instances_response = ecs_client.list_container_instances(
-                cluster=cluster_arn,
+                cluster=cluster_arn, 
+                filter='ec2InstanceId == ' + ec2_instance_id
             )
             if list_instances_response['containerInstanceArns']:
                 describe_instances_response = ecs_client.describe_container_instances(
